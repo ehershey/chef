@@ -20,7 +20,7 @@ functions:
         permissions: private
         content_type: application/x-rpm
         display_name: RPM
-  "install_ruby"
+  "install_ruby":
     - command: shell.exec
       params:
         script: |
