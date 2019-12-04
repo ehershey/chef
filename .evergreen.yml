@@ -1,0 +1,113 @@
+
+# build variants
+# rhel70
+# build
+# push to s3
+# rhel80
+# build
+# push to s3
+
+functions:
+  "push":
+    - command: s3.put
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          - omnibus/pkg/chef*.x86_64.rpm
+        remote_file: atlas-chefinfra/
+        bucket: mciuploads
+        permissions: private
+        content_type: application/x-rpm
+        display_name: RPM
+  "install_ruby"
+    - command: shell.exec
+      params:
+        script: |
+          set -v
+          set -e
+
+          # rhel 8 only
+          if echo ${distro_id} | grep -q rhel8
+          then
+            sudo dnf install http://mirror.centos.org/centos/8/PowerTools/x86_64/os/Packages/libyaml-devel-0.1.7-5.el8.x86_64.rpm
+          fi
+
+          # Install ruby-install and ruby unless our install dirs exist already
+          ruby_install_dir=${ruby_install_dir}
+          ruby_install_install_dir=${ruby_install_install_dir}
+
+          if [ ! -e "$ruby_install_install_dir" ]
+          then
+            mkdir "$ruby_install_install_dir"
+
+            curl  --location --output ruby-install-0.7.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
+            tar zxvf ruby-install-0.7.0.tar.gz
+            cd ruby-install-0.7.0
+            make install DESTDIR=$ruby_install_install_dir
+          fi
+
+          if [ ! -e "$ruby_install_dir" ]
+          then
+            $ruby_install_install_dir/usr/local/bin/ruby-install ruby 2.5.5 --install-dir $ruby_install_dir/
+          fi
+
+          $ruby_install_dir/bin/gem install omnibus bundler:1.17.3
+
+  "setup_project":
+    - command: expansions.update
+      params:
+        updates:
+          - key: "ruby_install_dir"
+            value: /tmp/sre-ruby
+          - key: "ruby_install_install_dir"
+            value: /tmp/sre-ruby-install
+          - key: "repodir"
+            value: ${workdir}/chef
+    - command: shell.exec
+      params:
+        script: |
+          set -v
+          set -e
+          cd ${workdir}
+          mkdir -p ${projdir}
+    - command: git.get_project
+      params:
+        directory: ${repodir}
+  "build":
+    - command: shell.exec
+      params:
+        script: |
+          set -v
+          set -e
+          cd ${repodir}/omnibus
+          ${ruby_install_dir}/bin/bundle install --without development
+          ${ruby_install_dir}/bin/bundle exec omnibus build --override base_dir:./local --override use_git_cache:true chef
+          #https://github.com/chef/omnibus-software/pull/1128
+
+buildvariants:
+  - name: rhel8
+    display_name: RHEL 8.0
+    run_on:
+      - rhel80-build
+    tasks:
+      - build
+      - push
+  - name: rhel7
+    display_name: RHEL 7.6
+    run_on:
+      - rhel76-build
+    tasks:
+      - build
+      - push
+
+tasks:
+  - name: build
+    commands:
+      - func: "setup_project"
+      - func: "install_ruby"
+      - func: "build"
+      - func: "push"
+  - name: push
+    commands:
+      - func: "setup_project"
