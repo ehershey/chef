@@ -64,13 +64,6 @@ functions:
             value: /tmp/sre-ruby-install
           - key: "repodir"
             value: ${workdir}/chef
-    - command: shell.exec
-      params:
-        script: |
-          set -v
-          set -e
-          cd ${workdir}
-          mkdir -p ${projdir}
     - command: git.get_project
       params:
         directory: ${repodir}
