@@ -90,14 +90,12 @@ buildvariants:
       - rhel80-build
     tasks:
       - build
-      - push
   - name: rhel7
     display_name: RHEL 7.6
     run_on:
       - rhel76-build
     tasks:
       - build
-      - push
 
 tasks:
   - name: build
@@ -106,6 +104,3 @@ tasks:
       - func: "install_ruby"
       - func: "build"
       - func: "push"
-  - name: push
-    commands:
-      - func: "setup_project"
