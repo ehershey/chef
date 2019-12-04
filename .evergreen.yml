@@ -82,7 +82,7 @@ functions:
           set -e
           cd ${repodir}/omnibus
           ${ruby_install_dir}/bin/bundle install --without development
-          ${ruby_install_dir}/bin/bundle exec omnibus build --override base_dir:./local --override use_git_cache:true chef
+          ${ruby_install_dir}/bin/bundle exec omnibus build --override base_dir:./local --override use_git_caching:true chef
           #https://github.com/chef/omnibus-software/pull/1128
 
 buildvariants:
