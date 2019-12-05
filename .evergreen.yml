@@ -30,7 +30,7 @@ functions:
           # rhel 8 only
           if echo ${distro_id} | grep -q rhel8
           then
-            sudo dnf install http://mirror.centos.org/centos/8/PowerTools/x86_64/os/Packages/libyaml-devel-0.1.7-5.el8.x86_64.rpm
+            sudo dnf --assumeyes install http://mirror.centos.org/centos/8/PowerTools/x86_64/os/Packages/libyaml-devel-0.1.7-5.el8.x86_64.rpm
           fi
 
           # Install ruby-install and ruby unless our install dirs exist already
