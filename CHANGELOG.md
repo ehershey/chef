@@ -1,25 +1,50 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
-<!-- latest_release 15.5.22 -->
-## [v15.5.22](https://github.com/chef/chef/tree/v15.5.22) (2019-12-04)
+<!-- latest_release 15.6.19 -->
+## [v15.6.19](https://github.com/chef/chef/tree/v15.6.19) (2019-12-18)
 
 #### Merged Pull Requests
-- Resolve non-zero &quot;success&quot; error code issues with linux_user re… [#9105](https://github.com/chef/chef/pull/9105) ([skippyj](https://github.com/skippyj))
+- resource archive_file: apply ownership to extracted files only [#9173](https://github.com/chef/chef/pull/9173) ([bobchaos](https://github.com/bobchaos))
 <!-- latest_release -->
 
-<!-- release_rollup since=15.5.17 -->
+<!-- release_rollup since=15.6.10 -->
 ### Changes not yet released to stable
 
 #### Merged Pull Requests
-- Resolve non-zero &quot;success&quot; error code issues with linux_user re… [#9105](https://github.com/chef/chef/pull/9105) ([skippyj](https://github.com/skippyj)) <!-- 15.5.22 -->
-- Tiny spelling typo and grammar [#9135](https://github.com/chef/chef/pull/9135) ([ehershey](https://github.com/ehershey)) <!-- 15.5.21 -->
-- [yum_repository] Add indentation for multiple baseurls [#9134](https://github.com/chef/chef/pull/9134) ([bugok](https://github.com/bugok)) <!-- 15.5.20 -->
-- restoring correct value to windows event source [#9117](https://github.com/chef/chef/pull/9117) ([bobchaos](https://github.com/bobchaos)) <!-- 15.5.19 -->
-- Spelling, punctuation, grammar [#9122](https://github.com/chef/chef/pull/9122) ([ehershey](https://github.com/ehershey)) <!-- 15.5.18 -->
+- resource archive_file: apply ownership to extracted files only [#9173](https://github.com/chef/chef/pull/9173) ([bobchaos](https://github.com/bobchaos)) <!-- 15.6.19 -->
+- add new option bootstrap_product for install cinc via bootstrap [#9112](https://github.com/chef/chef/pull/9112) ([sawanoboly](https://github.com/sawanoboly)) <!-- 15.6.18 -->
+- Bump inspec-core to 4.18.51 [#9168](https://github.com/chef/chef/pull/9168) ([chef-expeditor[bot]](https://github.com/chef-expeditor[bot])) <!-- 15.6.17 -->
+- try unit + functional tests [#9163](https://github.com/chef/chef/pull/9163) ([lamont-granquist](https://github.com/lamont-granquist)) <!-- 15.6.14 -->
+- Bump train-core to 3.2.5 [#9159](https://github.com/chef/chef/pull/9159) ([chef-expeditor[bot]](https://github.com/chef-expeditor[bot])) <!-- 15.6.12 -->
+- Fix mac_user breakage and logging [#9158](https://github.com/chef/chef/pull/9158) ([lamont-granquist](https://github.com/lamont-granquist)) <!-- 15.6.11 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
-## [v15.5.17](https://github.com/chef/chef/tree/v15.5.17) (2019-11-21)
+## [v15.6.10](https://github.com/chef/chef/tree/v15.6.10) (2019-12-12)
+
+#### Merged Pull Requests
+- Spelling, punctuation, grammar [#9122](https://github.com/chef/chef/pull/9122) ([ehershey](https://github.com/ehershey))
+- restoring correct value to windows event source [#9117](https://github.com/chef/chef/pull/9117) ([bobchaos](https://github.com/bobchaos))
+- [yum_repository] Add indentation for multiple baseurls [#9134](https://github.com/chef/chef/pull/9134) ([bugok](https://github.com/bugok))
+- Tiny spelling typo and grammar [#9135](https://github.com/chef/chef/pull/9135) ([ehershey](https://github.com/ehershey))
+- Resolve non-zero &quot;success&quot; error code issues with linux_user re… [#9105](https://github.com/chef/chef/pull/9105) ([skippyj](https://github.com/skippyj))
+- Bump omnibus-software to remove libtool+pkg-config [#9136](https://github.com/chef/chef/pull/9136) ([lamont-granquist](https://github.com/lamont-granquist))
+- Update Ohai and pull in Ruby perf improvements [#9137](https://github.com/chef/chef/pull/9137) ([tas50](https://github.com/tas50))
+- Bump Omnibus to the latest [#9138](https://github.com/chef/chef/pull/9138) ([tas50](https://github.com/tas50))
+- Update omnnibus-software to add further ruby cleanup [#9141](https://github.com/chef/chef/pull/9141) ([tas50](https://github.com/tas50))
+- Update ruby_prof to 1.0 [#9130](https://github.com/chef/chef/pull/9130) ([tas50](https://github.com/tas50))
+- bump omnibus-software + rhel6 fix [#9145](https://github.com/chef/chef/pull/9145) ([lamont-granquist](https://github.com/lamont-granquist))
+- Specify item path in Node.read! error message [#9147](https://github.com/chef/chef/pull/9147) ([zeusttu](https://github.com/zeusttu))
+- Symbolize config for ssl_verify_mode in credentials [#9064](https://github.com/chef/chef/pull/9064) ([teknofire](https://github.com/teknofire))
+- Replace hardcoded /etc/chef with Chef::Dist::CONF_DIR [#9060](https://github.com/chef/chef/pull/9060) ([bobchaos](https://github.com/bobchaos))
+- Fix for ChefConfig should expand relative paths [#9042](https://github.com/chef/chef/pull/9042) ([kapilchouhan99](https://github.com/kapilchouhan99))
+- Fix apt_repository uri single/double quotes and spaces [#9036](https://github.com/chef/chef/pull/9036) ([vsingh-msys](https://github.com/vsingh-msys))
+- Add output for the file provider verification [#9039](https://github.com/chef/chef/pull/9039) ([lamont-granquist](https://github.com/lamont-granquist))
+- Add a new distro constant for chef-apply [#9149](https://github.com/chef/chef/pull/9149) ([bobchaos](https://github.com/bobchaos))
+- Remove duplicate constant for Chef::Dist::SHORT [#9150](https://github.com/chef/chef/pull/9150) ([bobchaos](https://github.com/bobchaos))
+- Bump ohai to 15.6.3 [#9152](https://github.com/chef/chef/pull/9152) ([chef-expeditor[bot]](https://github.com/chef-expeditor[bot]))
 <!-- latest_stable_release -->
+
+## [v15.5.17](https://github.com/chef/chef/tree/v15.5.17) (2019-11-21)
 
 ## [v15.5.16](https://github.com/chef/chef/tree/v15.5.16) (2019-11-21)
 
