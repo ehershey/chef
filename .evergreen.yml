@@ -14,8 +14,41 @@ functions:
         aws_key: ${rpm_aws_key}
         aws_secret: ${rpm_aws_secret}
         local_files_include_filter:
-          - chef/omnibus/pkg/chef*.x86_64.rpm
-        remote_file: TESTRPMS/
+          - TESTRPMS-withlayout/8/x86_64/*.rpm
+        remote_file: TESTRPMS-withlayout/8/x86_64/
+        bucket: xgen-sre-rpms
+        permissions: private
+        content_type: application/x-rpm
+        display_name: RPM
+    - command: s3.put
+      params:
+        aws_key: ${rpm_aws_key}
+        aws_secret: ${rpm_aws_secret}
+        local_files_include_filter:
+          - TESTRPMS-withlayout/7/x86_64/*.rpm
+        remote_file: TESTRPMS-withlayout/7/x86_64/
+        bucket: xgen-sre-rpms
+        permissions: private
+        content_type: application/x-rpm
+        display_name: RPM
+    - command: s3.put
+      params:
+        aws_key: ${rpm_aws_key}
+        aws_secret: ${rpm_aws_secret}
+        local_files_include_filter:
+          - RPMS-withlayout/8/x86_64/*.rpm
+        remote_file: RPMS-withlayout/8/x86_64/
+        bucket: xgen-sre-rpms
+        permissions: private
+        content_type: application/x-rpm
+        display_name: RPM
+    - command: s3.put
+      params:
+        aws_key: ${rpm_aws_key}
+        aws_secret: ${rpm_aws_secret}
+        local_files_include_filter:
+          - RPMS-withlayout/7/x86_64/*.rpm
+        remote_file: RPMS-withlayout/7/x86_64/
         bucket: xgen-sre-rpms
         permissions: private
         content_type: application/x-rpm
@@ -64,25 +97,20 @@ functions:
             value: /tmp/sre-ruby-install
           - key: "repodir"
             value: ${workdir}/chef
+          - key: "scripts"
+            value: ${repodir}/scripts
     - command: git.get_project
       params:
         directory: ${repodir}
   "build":
-    - command: shell.exec
+    - command: subprocess.exec
       params:
-        script: |
-          set -v
-          set -e
-
-          # Build process very much dislikes running as non-root so just minimize what we have to do as root
-          #
-          sudo mkdir -p /opt/chef
-          sudo chown $USER /opt/chef
-
-          cd ${repodir}/omnibus
-          ${ruby_install_dir}/bin/bundle install --without development
-          ${ruby_install_dir}/bin/bundle exec omnibus build --override base_dir:./local chef
-
+        binary: ${scripts}/build_rpm.sh
+        env:
+          IS_PATCH: ${is_patch}
+          repodir: ${repodir}
+          workdir: ${workdir}
+          ruby_install_dir: ${ruby_install_dir}
 buildvariants:
   - name: rhel8
     display_name: RHEL 8.0
